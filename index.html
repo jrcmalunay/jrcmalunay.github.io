@@ -1,3 +1,100 @@
-Justin Malunay
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @jrcmalunay
+ Watch 334
+  Star 5,969
+  Fork 1,265 getpelican/pelican
+ Code  Issues 134  Pull requests 63  Wiki  Pulse  Graphs
+Branch: master Find file Copy pathpelican/pelican/themes/notmyidea/templates/base.html
+a670a3e  on Oct 11, 2015
+@TC01 TC01 Made name of blogroll/social widgets configurable.
+17 contributors @almet @justinmayer @onlyhavecans @Lothiraldan @Freeculturexx @kylewm @kriwil @jude @TC01 @iKevinY @saschwarz @ingwinlu @davidjb @saimn @bbinet @brejoc @jawher
+RawBlameHistory     83 lines (76 sloc)  3.78 KB
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+        <meta charset="utf-8" />
+        <title>{% block title %}{{ SITENAME }}{%endblock%}</title>
+        <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/{{ CSS_FILE }}" />
+        {% if FEED_ALL_ATOM %}
+        <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom Feed" />
+        {% endif %}
+        {% if FEED_ALL_RSS %}
+        <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS Feed" />
+        {% endif %}
 
-<p> Data Scientist in the making </p>
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+{% include 'github.html' %}
+        <header id="banner" class="body">
+                <h1><a href="{{ SITEURL }}/">{{ SITENAME }} {% if SITESUBTITLE %} <strong>{{ SITESUBTITLE }}</strong>{% endif %}</a></h1>
+                <nav><ul>
+                {% for title, link in MENUITEMS %}
+                    <li><a href="{{ link }}">{{ title }}</a></li>
+                {% endfor %}
+                {% if DISPLAY_PAGES_ON_MENU -%}
+                {% for pg in pages %}
+                    <li{% if pg == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a></li>
+                {% endfor %}
+                {% endif %}
+                {% if DISPLAY_CATEGORIES_ON_MENU -%}
+                {% for cat, null in categories %}
+                    <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+                {% endfor %}
+                {% endif %}
+                </ul></nav>
+        </header><!-- /#banner -->
+        {% block content %}
+        {% endblock %}
+        <section id="extras" class="body">
+        {% if LINKS %}
+                <div class="blogroll">
+                        <h2>{{ LINKS_WIDGET_NAME | default('links') }}</h2>
+                        <ul>
+                        {% for name, link in LINKS %}
+                            <li><a href="{{ link }}">{{ name }}</a></li>
+                        {% endfor %}
+                        </ul>
+                </div><!-- /.blogroll -->
+        {% endif %}
+        {% if SOCIAL or FEED_ALL_ATOM or FEED_ALL_RSS %}
+                <div class="social">
+                        <h2>{{ SOCIAL_WIDGET_NAME | default('social') }}</h2>
+                        <ul>
+                            {% if FEED_ALL_ATOM %}
+                            <li><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate">atom feed</a></li>
+                            {% endif %}
+                            {% if FEED_ALL_RSS %}
+                            <li><a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate">rss feed</a></li>
+                            {% endif %}
+
+                        {% for name, link in SOCIAL %}
+                            <li><a href="{{ link }}">{{ name }}</a></li>
+                        {% endfor %}
+                        </ul>
+                </div><!-- /.social -->
+        {% endif %}
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+{% include 'analytics.html' %}
+{% include 'disqus_script.html' %}
+</body>
+</html>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status Help
