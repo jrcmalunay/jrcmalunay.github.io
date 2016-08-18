@@ -1,1 +1,0 @@
-# jrcmalunay.github.io
